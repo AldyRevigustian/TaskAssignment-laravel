@@ -14,9 +14,9 @@ class HistoryController extends Controller
     {
         $tasks = Task::where('assigned_date', date('Y-m-d'))->get();
         $date = date('Y-m-d');
-
+        // dd(date('Y-m-d', strtotime($request->filter)));
         if ($request->filter) {
-            $tasks = Task::where('assigned_date', $request->filter)->get();
+            $tasks = Task::whereDate('assigned_date', $request->filter)->get();
             $date = $request->filter;
         }
 

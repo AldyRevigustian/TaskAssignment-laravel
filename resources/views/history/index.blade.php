@@ -34,24 +34,24 @@
                         <thead>
                             <tr>
                                 <th class="col-1">No.</th>
-                                <th> AssignTo </th>
-                                <th> Task Title </th>
-                                <th> Description </th>
-                                <th> Bukti </th>
-                                <th> Assigned_date </th>
-                                <th> Status </th>
+                                <th>AssignTo</th>
+                                <th>Task Title</th>
+                                <th>Description</th>
+                                <th>Bukti</th>
+                                <th>Status</th>
+                                <th class="text-center">Assigned Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($tasks as $key => $task)
                                 <tr>
                                     <td class="col-1">{{ $key + 1 }}</td>
-                                    <td>{{ ucfirst($task->user->name) }}</td>
+                                    <td class="col-1">{{ ucfirst($task->user->name) }}</td>
                                     <td>{{ $task->task_title }}</td>
                                     <td>{{ $task->task_description }}</td>
                                     <td class="col-1">{{ $task->upload_bukti }}</td>
-                                    <td class="col-1">{{ $task->assigned_date }}</td>
                                     <td class="col-1">{{ $task->status }}</td>
+                                    <td class="col-1 text-center">{{ date('Y-m-d H:i', strtotime($task->assigned_date)) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
