@@ -15,13 +15,11 @@ class ApiController extends Controller
 {
     public function login(Request $request)
     {
-        //validate fields
         $attrs = $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
 
-        // attempt login
         if (!Auth::attempt($attrs)) {
             return response([
                 'message' => 'Invalid credentials.'
@@ -31,7 +29,6 @@ class ApiController extends Controller
         /** @var \App\Models\MyUserModel $user **/
         $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
-        // dd(array($user));
 
         $userData = [];
 
@@ -78,19 +75,19 @@ class ApiController extends Controller
                 'status' => $request->status,
             ]);
 
-            $img = $request->file('upload_bukti');
-            $filename = 'bukti/' . time() . $img->getClientOriginalName();
+            $imageName = 'bukti/' . time() . '.' . $request->upload_bukti->extension();
+            Storage::disk('public')->put($imageName, file_get_contents($request->upload_bukti));
 
-            Storage::disk('public')->put($filename, $img);
+            $data->update([
+                'upload_bukti' => 'storage/' . $imageName
+            ]);
 
             return response()->json(['success' => true, 'message' => 'Berhasil Mengupdate data'], 200);
         } else {
-            if ($request->status == 'Completed') {
-                return response()->json([
-                    'succes' => 'false',
-                    'message' => 'Gagal! Harap Mengisi Image'
-                ]);
-            }
+            return response()->json([
+                'succes' => 'false',
+                'message' => 'Gagal! Harap Mengisi Image'
+            ]);
         }
     }
 
@@ -194,7 +191,7 @@ class ApiController extends Controller
 
     public function task()
     {
-        $data = Task::orderBy('created_at', 'DESC')->where('assigned_date', '=', Carbon::today())->get();
+        $data = Task::orderBy('created_at', 'DESC')->whereDate('assigned_date', Carbon::today())->get();
 
         $data_fix = [];
         foreach ($data as $d) {
@@ -215,7 +212,7 @@ class ApiController extends Controller
 
     public function history_task(Request $request)
     {
-        $data = Task::where('status', '!=', 'On Progress')->where('assigned_date', $request->assigned_date)->get();
+        $data = Task::where('status', '!=', 'On Progress')->whereDate('assigned_date', $request->assigned_date)->get();
 
         $data_fix = [];
         foreach ($data as $d) {

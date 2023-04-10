@@ -49,9 +49,16 @@
                                     <td class="col-1">{{ ucfirst($task->user->name) }}</td>
                                     <td>{{ $task->task_title }}</td>
                                     <td>{{ $task->task_description }}</td>
-                                    <td class="col-1">{{ $task->upload_bukti }}</td>
+                                    <td class="col-1">
+                                        @if ($task->upload_bukti)
+                                            <div class="avatar avatar-lg">
+                                                <img src="{{ $task->upload_bukti }}" />
+                                            </div>
+                                        @endif
+                                    </td>
                                     <td class="col-1">{{ $task->status }}</td>
-                                    <td class="col-1 text-center">{{ date('Y-m-d H:i', strtotime($task->assigned_date)) }}</td>
+                                    <td class="col-1 text-center">{{ date('Y-m-d H:i', strtotime($task->assigned_date)) }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

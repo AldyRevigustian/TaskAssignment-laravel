@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Identity;
 use App\Models\Task;
 use App\Models\User;
-use App\Schedule;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
