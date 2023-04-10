@@ -38,7 +38,7 @@
                                 <th> Task Title </th>
                                 <th> Description </th>
                                 <th> Bukti </th>
-                                <th> Tanggal </th>
+                                <th> Assigned_date </th>
                                 <th> Status </th>
                             </tr>
                         </thead>
@@ -50,7 +50,7 @@
                                     <td>{{ $task->task_title }}</td>
                                     <td>{{ $task->task_description }}</td>
                                     <td class="col-1">{{ $task->upload_bukti }}</td>
-                                    <td class="col-1">{{ $task->tanggal }}</td>
+                                    <td class="col-1">{{ $task->assigned_date }}</td>
                                     <td class="col-1">{{ $task->status }}</td>
                                 </tr>
                             @endforeach

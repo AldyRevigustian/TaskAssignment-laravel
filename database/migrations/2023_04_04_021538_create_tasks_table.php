@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('task_title');
             $table->string('task_description');
-            $table->date('tanggal');
+            $table->dateTime('assigned_date');
             $table->enum('status', ['Complete', 'Incomplete', 'On Progress'])->default('On Progress');
             $table->string('upload_bukti')->nullable();
             $table->timestamps();

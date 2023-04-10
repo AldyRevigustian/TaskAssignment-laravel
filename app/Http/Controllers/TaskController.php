@@ -18,9 +18,9 @@ class TaskController extends Controller
     public function index()
     {
         $users = User::where('role', 'user')->get();
-        $tasks = Task::orderBy('tanggal', 'ASC')
+        $tasks = Task::orderBy('assigned_date', 'ASC')
             ->where('status', 'On Progress')
-            ->whereDate('tanggal', '>=', Carbon::today())
+            ->whereDate('assigned_date', '>=', Carbon::today())
             ->get();
 
         return view('task.index', compact('tasks', 'users'));
@@ -28,6 +28,8 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        $date = date("Y-m-d H:i:s", strtotime($request->assigned_date));
+
         $identity = Identity::first();
         $client = new Client();
         $user = User::where('id', $request->user_id)->first();
@@ -36,7 +38,7 @@ class TaskController extends Controller
             'task_title' => $request->task_title,
             'task_description' => $request->task_description,
             'user_id' => $request->user_id,
-            'tanggal' => $request->tanggal,
+            'assigned_date' => $date,
         ]);
 
 
@@ -68,7 +70,7 @@ class TaskController extends Controller
             $res = json_decode($response->getBody()->getContents());
 
             if ($res->success == 1) {
-                return redirect()->route('task')->with('status', 'success')->with('message', 'Sukses menambah task');
+                return redirect()->route('task')->with('status', 'success')->with('message', 'Sukses menambah task dan mengirim notifikasi');
             } else {
                 return redirect()->route('task')->with('status', 'success')->with('message', 'Sukses menambah task tanpa notifikasi');
             }
@@ -84,7 +86,7 @@ class TaskController extends Controller
             'task_title' => $request->task_title ?? $task->task_title,
             'task_description' => $request->task_description ?? $task->task_description,
             'user_id' => $request->user_id ?? $task->user_id,
-            'tanggal' => $request->tanggal ?? $task->tanggal,
+            'assigned_date' => $request->assigned_date ?? $task->assigned_date,
             'status' => $request->status ?? $task->status,
             'upload_bukti' => $request->upload_bukti ?? $task->upload_bukti,
         ]);

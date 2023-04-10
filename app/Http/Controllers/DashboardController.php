@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = Task::orderBy('updated_at', 'DESC')->whereDate('tanggal', Carbon::today())->get();
+        $data = Task::orderBy('updated_at', 'DESC')->whereDate('assigned_date', Carbon::today())->get();
         $day = Carbon::today()->format('d-m-Y');
         $today = Carbon::today();
         $tasks = Task::all();

@@ -53,7 +53,7 @@ class ApiController extends Controller
     {
         $cek = Task::where('user_id', $user_id)
             ->orderBy('created_at', 'DESC')
-            ->whereDate('tanggal', Carbon::today())
+            ->whereDate('assigned_date', Carbon::today())
             ->get();
 
         if (count($cek) == 0) {
@@ -105,14 +105,14 @@ class ApiController extends Controller
             "task_title" => 'required',
             "task_description" => 'required',
             "user_id" => 'required',
-            "tanggal" => 'required',
+            "assigned_date" => 'required',
         ]);
 
         $task = Task::create([
             'task_title' => $request->task_title,
             'task_description' => $request->task_description,
             'user_id' => $request->user_id,
-            'tanggal' => $request->tanggal,
+            'assigned_date' => $request->assigned_date,
         ]);
 
         if ($user->registration == null) {
@@ -194,14 +194,14 @@ class ApiController extends Controller
 
     public function task()
     {
-        $data = Task::orderBy('created_at', 'DESC')->where('tanggal', '=', Carbon::today())->get();
+        $data = Task::orderBy('created_at', 'DESC')->where('assigned_date', '=', Carbon::today())->get();
 
         $data_fix = [];
         foreach ($data as $d) {
             $data_change['id'] = $d->id;
             $data_change['task_title'] = $d->task_title;
             $data_change['task_description'] = $d->task_description;
-            $data_change['tanggal'] = $d->tanggal;
+            $data_change['assigned_date'] = $d->assigned_date;
             $data_change['status'] = $d->status;
             $data_change['upload_bukti'] = $d->upload_bukti;
             $data_change['assign_to'] = $d->user->name;
@@ -215,14 +215,14 @@ class ApiController extends Controller
 
     public function history_task(Request $request)
     {
-        $data = Task::where('status', '!=', 'On Progress')->where('tanggal', $request->tanggal)->get();
+        $data = Task::where('status', '!=', 'On Progress')->where('assigned_date', $request->assigned_date)->get();
 
         $data_fix = [];
         foreach ($data as $d) {
             $data_change['id'] = $d->id;
             $data_change['task_title'] = $d->task_title;
             $data_change['task_description'] = $d->task_description;
-            $data_change['tanggal'] = $d->tanggal;
+            $data_change['assigned_date'] = $d->assigned_date;
             $data_change['status'] = $d->status;
             $data_change['upload_bukti'] = $d->upload_bukti;
             $data_change['user_id'] = $d->user->name;

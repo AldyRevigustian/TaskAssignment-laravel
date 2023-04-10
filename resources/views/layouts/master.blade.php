@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="/assets/extensions/simple-datatables/style.css">
     <link rel="stylesheet" href="/assets/css/pages/simple-datatables.css">
     <link rel="stylesheet" href="/assets/extensions/choices.js/public/assets/styles/choices.css" />
+
+    <!-- Include Bootstrap CSS and JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Include Bootstrap datetimepicker CSS and JavaScript -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+
     <style>
         ::-webkit-scrollbar {
             width: 20px;
@@ -52,7 +61,6 @@
             background-color: white
         }
     </style>
-    @stack('script')
 
 </head>
 
@@ -115,7 +123,8 @@
                         </a>
                     </li> --}}
                     <li class="sidebar-item" style="margin-bottom:5rem;">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                             class='sidebar-link'>
                             <i class="bi bi-box-arrow-in-left"></i>
                             <span>Logout</span>
@@ -165,14 +174,18 @@
         </div>
     </div>
 
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/assets/js/bootstrap.js"></script>
     <script src="/assets/js/app.js"></script>
     <script src="/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
     <script src="/assets/js/pages/simple-datatables.js"></script>
     <script src="/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="/assets/js/pages/form-element-select.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+    </script>
     <script>
         const appBody = document.body;
         if (localStorage.getItem('theme') == 'theme-dark') {
@@ -183,7 +196,7 @@
             appBody.classList.add("theme-light");
         };
     </script>
-    @stack('script')
+    @stack('scripts')
 </body>
 
 </html>

@@ -12,11 +12,11 @@ class HistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $tasks = Task::where('tanggal', date('Y-m-d'))->get();
+        $tasks = Task::where('assigned_date', date('Y-m-d'))->get();
         $date = date('Y-m-d');
 
         if ($request->filter) {
-            $tasks = Task::where('tanggal', $request->filter)->get();
+            $tasks = Task::where('assigned_date', $request->filter)->get();
             $date = $request->filter;
         }
 

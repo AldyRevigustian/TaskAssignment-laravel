@@ -33,21 +33,6 @@ class DatabaseSeeder extends Seeder
             'photo' => '/assets/images/faces/1.jpg'
         ]);
 
-        Task::create([
-            'task_title' => 'Test',
-            'task_description' => 'Test',
-            'user_id' => 2,
-            'tanggal' => date('Y-m-d'),
-            'status' => 'On Progress',
-        ]);
-        Task::create([
-            'task_title' => 'Test',
-            'task_description' => 'Test',
-            'user_id' => 2,
-            'tanggal' => date('Y-m-d'),
-            'status' => 'On Progress',
-        ]);
-
         Identity::create([
             'app_name' => 'Task Assignment',
             // 'app_logo' => 'Task Assignment',

@@ -13,7 +13,7 @@ class Task extends Model
         'task_title',
         'task_description',
         'user_id',
-        'tanggal',
+        'assigned_date',
         'status',
         'upload_bukti'
     ];

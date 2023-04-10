@@ -1,6 +1,21 @@
 @extends('layouts.master')
 
 @section('content')
+    <style>
+        .bdpr {
+            border: 1px solid #dce7f1;
+            padding: 10px;
+            margin: auto !important;
+            margin-top: 20px !important;
+        }
+
+        .datepicker td,
+        th {
+            text-align: center;
+            padding: 4px 12px;
+            font-size: 14px;
+        }
+    </style>
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
@@ -25,12 +40,12 @@
                         <thead>
                             <tr>
                                 <th class="col-1">No.</th>
-                                <th> AssignTo </th>
-                                <th> Task Title </th>
-                                <th> Description </th>
-                                <th> Bukti </th>
-                                <th> Tanggal </th>
-                                <th> Status </th>
+                                <th>Assign To</th>
+                                <th>Task Title</th>
+                                <th>Description</th>
+                                <th>Bukti</th>
+                                <th>Status</th>
+                                <th class="text-center">Assigned Date</th>
                                 <th class="col-1">Aksi</th>
                             </tr>
                         </thead>
@@ -38,12 +53,12 @@
                             @foreach ($tasks as $key => $task)
                                 <tr>
                                     <td class="col-1">{{ $key + 1 }}</td>
-                                    <td>{{ ucfirst($task->user->name) }}</td>
+                                    <td class="col-1">{{ ucfirst($task->user->name) }}</td>
                                     <td>{{ $task->task_title }}</td>
                                     <td>{{ $task->task_description }}</td>
                                     <td class="col-1">{{ $task->upload_bukti }}</td>
-                                    <td class="col-1">{{ $task->tanggal }}</td>
                                     <td class="col-1">{{ $task->status }}</td>
+                                    <td class="col-1 text-center">{{ date('Y-m-d H:i', strtotime($task->assigned_date)) }}</td>
                                     <td class="col-1">
                                         <a href="#" class="btn icon btn-warning text-light" data-bs-toggle="modal"
                                             data-bs-target="#edit{{ $task->id }}"><i class="bi bi-pencil-fill"></i></a>
@@ -99,13 +114,12 @@
                             </select>
                         </div>
 
-                        <label>Tanggal: </label>
+                        <label>Assigned Date: </label>
                         <div class="form-group">
-                            <input type="date" placeholder="Task Description" class="form-control" name="tanggal"
-                                required value="{{ date('Y-m-d') }}" readonly>
+                            <div class='input-group date' id='datetimepicker11'>
+                                <input type='text' class="form-control" style="width: 100%" name="assigned_date" />
+                            </div>
                         </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -120,47 +134,31 @@
             </div>
         </div>
     </div>
-
-    {{-- @foreach ($tasks as $task)
-        <div class="modal fade text-left" id="edit{{ $task->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Edit Task</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <i data-feather="x"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('task.update', $task->id) }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <label>Name : </label>
-                            <div class="form-group">
-                                <input type="text" placeholder="Name" class="form-control" name="name" required
-                                    value="{{ $task->name }}">
-                            </div>
-
-                            <label>Photo : </label>
-                            <div class="form-group">
-                                <input type="file" accept="image/*" placeholder="Title" class="form-control"
-                                    name="photo">
-                            </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Close</span>
-                        </button>
-                        <button type="submit" class="btn btn-primary ml-1">
-                            <span class="d-none d-sm-block">Update</span>
-                        </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach --}}
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker11').datetimepicker({
+                inline: true,
+                sideBySide: true,
+                format: 'YYYY-MM-DD HH:mm',
+            });
+            $(".datepicker").removeClass("col-md-6");
+            $(".datepicker").addClass("col-md-8");
+
+            $(".timepicker").removeClass("col-md-6");
+            $(".timepicker").addClass("col-md-4");
+
+            $(".bootstrap-datetimepicker-widget").addClass("bdpr");
+
+            $(".glyphicon").removeClass("glyphicon").addClass("bi");
+
+            $(".glyphicon-chevron-left").removeClass("glyphicon-chevron-left").addClass("bi-chevron-left");
+            $(".glyphicon-chevron-right").removeClass("glyphicon-chevron-right").addClass("bi-chevron-right");
+            $(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("bi-chevron-up");
+            $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("bi-chevron-down");
+
+        });
+    </script>
+@endpush
