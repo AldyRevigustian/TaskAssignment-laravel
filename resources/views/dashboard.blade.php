@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-10">
                                         <h6 class="text-muted font-semibold">Today Task</h6>
-                                        <h6 class="font-extrabold mb-0">{{ \App\Models\Task::count() }}</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $data->count() }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -62,9 +62,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($tasks->slice(0,5) as $task)
+                                    @foreach ($data->slice(0, 5) as $task)
                                         <tr>
-                                            <td class="col-2 pb-3 pt-3">
+                                            <td class="col-1 pb-3 pt-3">
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar avatar-md">
                                                         <img src="{{ $task->user->photo }}" />
@@ -72,20 +72,24 @@
                                                     <p class="font-bold ms-3 mb-0">{{ ucfirst($task->user->name) }}</p>
                                                 </div>
                                             </td>
-                                            <td class="col-auto">
+                                            <td style="max-width: 100px">
                                                 <p class="mb-0">
                                                     {{ $task->task_title }}
                                                 </p>
                                             </td>
-                                            <td class="col-auto">
-                                                <p class="mb-0">
+                                            <td style="max-width: 300px">
+                                                <p class="mb-0 me-3">
                                                     {{ $task->task_description }}
                                                 </p>
                                             </td>
-                                            <td class="col-2">
-                                                <p class="mb-0">
-                                                    {{ $task->status }}
-                                                </p>
+                                            <td class="col-1">
+                                                @if ($task->status == 'Complete')
+                                                    <span class="badge bg-success col-12">{{ $task->status }}</span>
+                                                @elseif ($task->status == 'Incomplete')
+                                                    <span class="badge bg-danger col-12">{{ $task->status }}</span>
+                                                @else
+                                                    <span class="badge bg-secondary col-12">{{ $task->status }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

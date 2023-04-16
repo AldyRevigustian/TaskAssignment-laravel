@@ -43,7 +43,6 @@
                                 <th>Assign To</th>
                                 <th>Task Title</th>
                                 <th>Description</th>
-                                <th>Bukti</th>
                                 <th>Status</th>
                                 <th class="text-center">Assigned Date</th>
                                 <th class="col-1">Aksi</th>
@@ -54,8 +53,8 @@
                                 <tr>
                                     <td class="col-1">{{ $key + 1 }}</td>
                                     <td class="col-1">{{ ucfirst($task->user->name) }}</td>
-                                    <td>{{ $task->task_title }}</td>
-                                    <td>{{ $task->task_description }}</td>
+                                    <td style="max-width: 100px">{{ $task->task_title }}</td>
+                                    <td style="max-width: 300px">{{ $task->task_description }}</td>
                                     <td class="col-1">
                                         @if ($task->upload_bukti)
                                             <div class="avatar avatar-lg">
@@ -63,7 +62,15 @@
                                             </div>
                                         @endif
                                     </td>
-                                    <td class="col-1">{{ $task->status }}</td>
+                                    <td class="col-1">
+                                        @if ($task->status == 'Complete')
+                                            <span class="badge bg-success col-12">{{ $task->status }}</span>
+                                        @elseif ($task->status == 'Incomplete')
+                                            <span class="badge bg-danger col-12">{{ $task->status }}</span>
+                                        @else
+                                            <span class="badge bg-secondary col-12">{{ $task->status }}</span>
+                                        @endif
+                                    </td>
                                     <td class="col-1 text-center">{{ date('Y-m-d H:i', strtotime($task->assigned_date)) }}
                                     </td>
                                     <td class="col-1">

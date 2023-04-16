@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('task_title');
-            $table->string('task_description');
+            $table->text('task_description');
             $table->dateTime('assigned_date');
             $table->enum('status', ['Complete', 'Incomplete', 'On Progress'])->default('On Progress');
             $table->string('upload_bukti')->nullable();

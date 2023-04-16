@@ -33,6 +33,38 @@ class DatabaseSeeder extends Seeder
             'photo' => '/assets/images/faces/1.jpg'
         ]);
 
+        Task::create([
+            'task_title' => 'Membersihkan ruangan kelas',
+            'task_description' => 'Tolong bersihkan semua ruang kelas di lantai 1',
+            'user_id' => 2,
+            'assigned_date' => date('Y-m-d H:i'),
+        ]);
+
+        Task::create([
+            'task_title' => 'Mengisi dan menyediakan air minum',
+            'task_description' => 'Tolong sediakan air minum untuk di aula',
+            'user_id' => 2,
+            'assigned_date' => date('Y-m-d H:i'),
+        ]);
+        Task::create([
+            'task_title' => 'Mengantarkan barang',
+            'task_description' => 'Tolong antarkan paket di kantor satpam ke ruang tata usaha',
+            'user_id' => 2,
+            'assigned_date' => date('Y-m-d H:i'),
+        ]);
+        Task::create([
+            'task_title' => 'Menjaga kebersihan toilet',
+            'task_description' => 'Tolong bersihkan toilet guru',
+            'user_id' => 2,
+            'assigned_date' => date('Y-m-d H:i'),
+        ]);
+        Task::create([
+            'task_title' => 'Membantu mempersiapkan acara',
+            'task_description' => 'Tolong membantu untuk persiapan kegiatan graduation',
+            'user_id' => 2,
+            'assigned_date' => date('Y-m-d H:i'),
+        ]);
+
         Identity::create([
             'app_name' => 'Task Assignment',
             // 'app_logo' => 'Task Assignment',

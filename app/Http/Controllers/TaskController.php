@@ -12,8 +12,21 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
+    public function cek_expired()
+    {
+        $expired = Task::where('assigned_date', '<', Carbon::today())->get();
+        foreach ($expired as $ex) {
+            $ex->update([
+                'status' => 'Incomplete'
+            ]);
+        }
+        return;
+    }
+
+
     public function index()
     {
+        $this->cek_expired();
         $users = User::where('role', 'user')->get();
         $tasks = Task::orderBy('assigned_date', 'ASC')
             ->where('status', 'On Progress')
@@ -93,13 +106,6 @@ class TaskController extends Controller
         }
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $data = Task::find($id);

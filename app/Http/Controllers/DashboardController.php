@@ -10,17 +10,25 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function cek_expired()
+    {
+        $expired = Task::where('assigned_date', '<', Carbon::today())->get();
+        foreach ($expired as $ex) {
+            $ex->update([
+                'status' => 'Incomplete'
+            ]);
+        }
+        return;
+    }
+
     public function index()
     {
+        $this->cek_expired();
         $data = Task::orderBy('updated_at', 'DESC')->whereDate('assigned_date', Carbon::today())->get();
         $day = Carbon::today()->format('d-m-Y');
         $today = Carbon::today();
         $tasks = Task::all();
+
         return view('dashboard', compact('data', 'day', 'today', 'tasks'));
     }
 }
