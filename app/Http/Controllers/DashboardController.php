@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function cek_expired()
+    function __construct()
     {
         $expired = Task::where('assigned_date', '<', Carbon::today())->get();
         foreach ($expired as $ex) {
@@ -23,7 +23,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $this->cek_expired();
         $data = Task::orderBy('updated_at', 'DESC')->whereDate('assigned_date', Carbon::today())->get();
         $day = Carbon::today()->format('d-m-Y');
         $today = Carbon::today();

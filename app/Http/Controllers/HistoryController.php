@@ -10,7 +10,7 @@ use Storage;
 
 class HistoryController extends Controller
 {
-    public function cek_expired()
+    function __construct()
     {
         $expired = Task::where('assigned_date', '<', Carbon::today())->get();
         foreach ($expired as $ex) {
@@ -20,10 +20,8 @@ class HistoryController extends Controller
         }
         return;
     }
-
     public function index(Request $request)
     {
-        $this->cek_expired();
         $tasks = Task::whereDate('assigned_date', date('Y-m-d'))->where('status', '!=', 'On Progress')->get();
         $date = date('Y-m-d');
         if ($request->filter) {

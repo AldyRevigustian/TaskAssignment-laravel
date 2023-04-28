@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
-    public function cek_expired()
+    function __construct()
     {
         $expired = Task::where('assigned_date', '<', Carbon::today())->get();
         foreach ($expired as $ex) {
@@ -26,7 +26,6 @@ class TaskController extends Controller
 
     public function index()
     {
-        $this->cek_expired();
         $users = User::where('role', 'user')->get();
         $tasks = Task::orderBy('assigned_date', 'ASC')
             ->where('status', 'On Progress')
