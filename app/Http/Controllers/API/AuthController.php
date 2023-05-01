@@ -71,7 +71,7 @@ class AuthController extends Controller
         return response()->json(['success' => 'true', 'message' => 'Berhasil Menambahkan registrationIds', 'data' => $data]);
     }
 
-    public function identiy()
+    public function identity()
     {
         $identity = Identity::first();
         return response()->json(
