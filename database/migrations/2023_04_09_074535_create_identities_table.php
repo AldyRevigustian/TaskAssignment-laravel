@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('identities', function (Blueprint $table) {
             $table->id();
             $table->string('app_name');
+            $table->string('company_name');
             $table->string('app_logo')->nullable();
             $table->string('app_authorization');
             $table->string('app_mobile_name');

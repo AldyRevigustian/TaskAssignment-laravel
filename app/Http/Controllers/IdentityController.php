@@ -4,62 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Identity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IdentityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $identity = Identity::first();
+
+        return view('identity', compact('identity'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Identity $identity)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Identity $identity)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Identity $identity)
     {
-        //
-    }
+        $identity = Identity::first();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Identity $identity)
-    {
-        //
+        $identity->update([
+            'app_name' => $request->app_name ?? $identity->app_name,
+            'company_name' => $request->company_name ?? $identity->company_name,
+            'app_authorization' => $request->app_authorization ?? $identity->app_authorization,
+            'app_mobile_name' => $request->app_mobile_name ?? $identity->app_mobile_name
+        ]);
+
+        if ($request->app_logo) {
+            $imageName = 'logo/' . time() . '.' . $request->app_logo->extension();
+            Storage::disk('public')->put($imageName, file_get_contents($request->app_logo));
+
+            $identity->update([
+                'app_logo' => 'storage/' . $imageName
+            ]);
+        }
+
+        return redirect()->route('identity')->with('status', 'success')->with('message', 'Sukes mengedit identitas aplikasi');
     }
 }

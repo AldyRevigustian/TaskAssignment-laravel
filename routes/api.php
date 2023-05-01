@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('registration', [AuthController::class, 'registration']);
+Route::get('identity', [AuthController::class, 'identity']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('worker', [UserController::class, 'worker']);

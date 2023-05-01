@@ -32,7 +32,7 @@ class TaskController extends Controller
             ->whereDate('assigned_date', '>=', Carbon::today())
             ->get();
 
-        return view('task.index', compact('tasks', 'users'));
+        return view('task', compact('tasks', 'users'));
     }
 
     public function store(Request $request)

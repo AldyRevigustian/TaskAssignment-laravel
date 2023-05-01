@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Identity;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
@@ -68,5 +69,13 @@ class AuthController extends Controller
         $data->update();
 
         return response()->json(['success' => 'true', 'message' => 'Berhasil Menambahkan registrationIds', 'data' => $data]);
+    }
+
+    public function identiy()
+    {
+        $identity = Identity::first();
+        return response()->json(
+            $identity
+        );
     }
 }

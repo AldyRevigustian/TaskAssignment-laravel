@@ -29,7 +29,7 @@ class HistoryController extends Controller
             $date = $request->filter;
         }
 
-        return view('history.index', compact('tasks', 'date'));
+        return view('history', compact('tasks', 'date'));
     }
 
     public function destroy($id)

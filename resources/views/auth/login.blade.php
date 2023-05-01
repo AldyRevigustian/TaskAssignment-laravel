@@ -13,11 +13,9 @@
 
 <body>
     <div id="auth">
-        <div class="row h-100">
+        <div class="row">
             <div class="col-lg-5 col-12" style="display: flex; flex-direction:column; justify-content:center">
                 <div id="auth-left">
-
-
                     <h1 class="auth-title">Log in.</h1>
                     <p class="auth-subtitle mb-5">
                         Log in with your data that you entered during registration.
@@ -72,7 +70,7 @@
             </div>
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
-                    {{-- <img src="{{ '/assets/images/samples/perpus.jpg' }}" alt="" style="height: 100%" width="100%"> --}}
+                    <img src="{{ '/assets/images/samples/task.jpg' }}" alt="" style="height: 100%; width: 100%;" >
                 </div>
             </div>
         </div>

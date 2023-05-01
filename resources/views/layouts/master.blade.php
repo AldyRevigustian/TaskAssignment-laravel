@@ -64,17 +64,24 @@
 
 </head>
 
+@php
+    $identity = App\Models\Identity::first();
+@endphp
+
 <body class="theme-light">
     <div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
             <div class="sidebar-header position-relative">
                 <div class="d-flex ">
-                    <div class="logo ms-3">
-                        <h3>
-                            Task <br>
-                            Assignment
-                        </h3>
-                        {{-- <img src="{{ $identitas->foto }}" style="width: 150px; height: 150px;" alt="Logo"> --}}
+                    <div class="logo mx-auto">
+                        @if ($identity->app_logo != null)
+                            <img src="{{ $identity->app_logo }}" style="width: 150px; height: 150px;object-fit: contain" alt="Logo">
+                        @else
+                            <h3>
+                                Task <br>
+                                Assignment
+                            </h3>
+                        @endif
                     </div>
                     <div class="sidebar-toggler  x">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -116,12 +123,12 @@
                             <span>History</span>
                         </a>
                     </li>
-                    {{-- <li class="sidebar-item {{ request()->is('identity*') ? 'active' : '' }} ">
+                    <li class="sidebar-item {{ request()->is('identity*') ? 'active' : '' }} ">
                         <a href="{{ route('identity') }}" class='sidebar-link'>
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Identity</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="sidebar-item" style="margin-bottom:5rem;">
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

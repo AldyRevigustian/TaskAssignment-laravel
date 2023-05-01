@@ -11,8 +11,8 @@ class Identity extends Model
 
     protected $fillable = [
         'app_name',
+        'company_name',
         'app_logo',
-        'app_registration',
         'app_authorization',
         'app_mobile_name'
     ];

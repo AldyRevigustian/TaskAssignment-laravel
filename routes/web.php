@@ -54,6 +54,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'identity'], function () {
         Route::get('/', [IdentityController::class, 'index'])->name('identity');
-        Route::delete('/delete/{id}', [IdentityController::class, 'destroy'])->name('identity.delete');
+        Route::post('/update', [IdentityController::class, 'update'])->name('identity.update');
     });
 });

@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $admins = User::where('role', 'admin')->get();
-        return view('admin.index', compact('admins'));
+        return view('admin', compact('admins'));
     }
 
     public function store(Request $request)
